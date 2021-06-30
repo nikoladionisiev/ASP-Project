@@ -1,0 +1,101 @@
+<app-header></app-header>
+
+<section class="container">
+    <div class="left-container">
+        <img src="../../assets/images/book-form-image.png" id="left-container-img" />
+        <h4>The Curious Readers Library</h4>
+    </div>
+
+    <div class="right-container">
+        <h1>Adding a book</h1>
+
+        <form #bookForm="ngForm" (ngSubmit)="onSubmit()" class="form" encoding type="multipart/form-data">
+           
+            <div class="form-group">
+                <label for="book-title" [ngClass]="{'filled' : bookModel.title}">Title</label>
+                <input type="text" id="title" required
+                [(ngModel)]="bookModel.title" name="title" 
+                #title="ngModel">
+            </div>
+
+            <div *ngIf="title.errors && (title.invalid && title.touched)">
+                <small class="invalid-validation" *ngIf="title.errors.required || title.pristine">Title is required.</small>
+            </div>
+
+            <div class="book-description-div">
+                <label for="book-description" [ngClass]="{'filled' : bookModel.description}"></label>
+                <textarea placeholder="Book description" type="text" id="description"
+                maxlength="250" rows="5" cols="30" required
+                [(ngModel)]="bookModel.description" name="description" 
+                #description="ngModel">
+                </textarea>
+            </div>
+
+            <div *ngIf="description.errors && (description.invalid && description.touched)">
+                <small class="invalid-validation" *ngIf="description.errors.required 
+                || description.pristine">Description is required</small>
+                <small class="invalid-validation" *ngIf="description.errors.pattern">Please provide a valid description.</small>
+            </div>
+
+            <div class="form-group">
+                <label for="book-quantity" [ngClass]="{'filled' : bookModel.quantity}">Quantity</label>
+                <input type="number" id="quantity"
+                min="1"
+                oninput="validity.valid||(value='')"
+                [(ngModel)]="bookModel.quantity" name="quantity"
+                #quantity="ngModel">
+            </div>
+
+            <div class="form-group">
+                <label for="book-author-name" [ngClass]="{'filled' : authorModel.name}">Author</label>
+                <input type="text" id="authorName" required
+                [(ngModel)]="authorModel.name" name="authorName" 
+                #authorName="ngModel">
+            </div>
+
+            <div *ngIf="authorName.errors && (authorName.invalid && authorName.touched)">
+                <small class="invalid-validation" *ngIf="authorName.errors.required  
+                || authorName.pristine">Author name is required.</small>
+            </div>
+
+            <div class="form-group">
+                <label for="book-cover" [ngClass]="{'filled' : cover}"></label>
+                <input type="file" id="cover" (change)="onSelectedFile($event)"
+                [ngModel]="cover" name="cover" accept="image/png, image/jpeg"
+                #cover="ngModel">
+            </div>
+               
+            <select name="genre-reg" class="select" id="genre-reg" [(ngModel)]="bookModel.genre.name"
+            required pattern="{{genres}}"
+            [(ngModel)]="bookModel.genre.name" name="genre"
+            #genre="ngModel">>
+                <option value="" selected="true">Select Genre</option>
+                <option *ngFor="let genre of genres" value="{{genre}}" selected="false">{{genre}}</option>
+            </select>
+
+            <div *ngIf="genre.errors && (genre.invalid && genre.touched)">
+                <small class="invalid-validation" *ngIf="genre.errors.required 
+                || genre.pristine">Please select a genre.</small>
+            </div>
+
+            <button type="submit" class="book-button">Add Book</button>
+        </form>
+    </div>
+</section>  
+
+<app-error-message [errorMessage]='errorMsg' (click)='clearErrorMessage()'></app-error-message>
+<app-success-message [successMessage]='successMsg' (click)='clearSuccessMessage()'></app-success-message>
+
+<section>
+        <div class="footer-container">
+            <h2 class="contacts-head">Contacts</h2>
+    
+            <div class="contacts-main">
+                <h4 class="contacts-address">Address:</h4>
+                <p class="contacts-address-main"> bul. "Vitosha" 89B, 1606 Ivan Vazov, Sofia</p>
+    
+                <h4 class="contacts-phone-number">Phone number:</h4>
+                <p class="contacts-phone-number-main">+359885590096</p>
+            </div>
+        </div>
+</section>

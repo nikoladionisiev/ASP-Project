@@ -1,0 +1,38 @@
+<app-header></app-header>
+
+<div class="newbooks-table">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Remaining days</th>
+                <th>Return date</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="
+                let item of books
+                  | paginate
+                    : {
+                        id: 'newBooksPaginationControls',
+                        itemsPerPage: pageSize,
+                        currentPage: pageNumber,
+                        totalItems: totalItems
+                      }
+                ">
+               
+
+                <th>{{item.bookTitle}}</th>
+                <th>{{item.remainingDays}} <a *ngIf="item.remainingDays <= 0" style="color: red"> - Return book as soon as possible.</a></th>
+                <th>{{this.dateToReturn(item.returnBookDate)}}</th>
+                <button type=button class="request-button" (click)="request()" >Request more days</button>
+            </tr>
+        </tbody>
+    </table>
+
+    <pagination-controls style="text-align: center;" class="pagi" id="newBooksPaginationControls"
+        (pageChange)="getCurrentPageData((pageNumber = $event))">
+    </pagination-controls>
+</div>
+
+<app-footer></app-footer>

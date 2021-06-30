@@ -1,0 +1,15 @@
+@import "~src/variables.scss";
+
+.header-container {
+  background-color: cadetblue;
+  padding: 0.5rem;
+  position: relative;
+
+  .header-title{
+      color: whitesmoke;
+      text-align: center;
+      font-weight: 400;
+      letter-spacing: 3px;
+      margin-bottom: 0.1rem;
+  }
+}

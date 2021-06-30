@@ -1,0 +1,27 @@
+@import '~src/variables.scss';
+
+body, html {
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.container {
+  margin: 0 auto;
+  padding: 30px;
+
+  @media (min-width: $smallMediaWidth) {
+    width: 540px;
+  }
+
+  @media (min-width: $mediumMediaWidth) {
+    width: 740px;  
+  }
+
+  @media (min-width: $largeMediaWidth) {
+    width: 860px;
+  }
+}
